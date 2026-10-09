@@ -17,4 +17,14 @@ public class CrewMember extends Person {
         return "Crew #" + getId() + ": " + getName() + " (" + role + ", " + department
                 + ") | Fee: " + getFee() + " | Contact: " + getContact();
     }
+
+    @Override
+    public String toCsv() { return super.toCsv() + "," + role + "," + department; }
+
+    /** Rebuilds a CrewMember from a line written by toCsv(). */
+    public static CrewMember fromCsv(String line) {
+        String[] p = line.split(",", -1);
+        return new CrewMember(Integer.parseInt(p[0]), p[1], p[2],
+                Double.parseDouble(p[3]), p[4], p[5]);
+    }
 }
