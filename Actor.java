@@ -13,4 +13,14 @@ public class Actor extends Person {
         return "Actor #" + getId() + ": " + getName() + " plays \"" + characterName
                 + "\" | Fee: " + getFee() + " | Contact: " + getContact();
     }
+
+    @Override
+    public String toCsv() { return super.toCsv() + "," + characterName; }
+
+    /** Rebuilds an Actor from a line written by toCsv(). */
+    public static Actor fromCsv(String line) {
+        String[] p = line.split(",", -1);
+        return new Actor(Integer.parseInt(p[0]), p[1], p[2],
+                Double.parseDouble(p[3]), p[4]);
+    }
 }
