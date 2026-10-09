@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Movie implements Storable {
     private int movieId;
     private String title;
@@ -32,5 +34,17 @@ public class Movie implements Storable {
     public String toCsv() {
         return movieId + "," + title + "," + genre + "," + releaseYear + ","
                 + durationMinutes + "," + director.getId();
+    }
+
+    /** Rebuilds a Movie; the director is looked up by id in the already-loaded list. */
+    public static Movie fromCsv(String line, List<Director> directors) {
+        String[] p = line.split(",", -1);
+        int dirId = Integer.parseInt(p[5]);
+        Director d = null;
+        for (Director x : directors) {
+            if (x.getId() == dirId) { d = x; break; }
+        }
+        return new Movie(Integer.parseInt(p[0]), p[1], p[2],
+                Integer.parseInt(p[3]), Integer.parseInt(p[4]), d);
     }
 }
