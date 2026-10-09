@@ -55,7 +55,7 @@ FileStorage<T extends Storable> has save(List<T>), load(Function<String,T>) and 
 When loading a Scene or ShootingSchedule, look up the location or scene by id from the already-loaded lists. Agree the load order with Member 1: people, locations and equipment, then scenes, then schedules.
 
 
-Member 4: ConsoleMenu
+Member 4: ConsoleMenu (Kanishgha Sri)
 
 
 Menu options:
