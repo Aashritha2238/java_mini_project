@@ -33,18 +33,27 @@ When loading a Scene or ShootingSchedule, look up the location or scene by id fr
 
 Member 4: ConsoleMenu
 
-Menu options: add actor, add crew, add location, add equipment, create scene, schedule a scene, update scene progress, show budget, show timeline, advance phase, save, load, exit.
+Menu options: 
+
+add actor, add crew, add location, add equipment, create scene, schedule a scene, update scene progress, show budget, show timeline, advance phase, save, load, exit.
 Use the Map<Integer, Runnable> from the diagram to look up the option, and wrap ResourceNotAvailableException and the other errors in try/catch.
-Ground rules, so the code fits together
+
+
+Ground rules, so the code fits together.
 The diagram is the contract. Use the exact class names, method names and signatures. Everyone can write against them without waiting for the others, using empty stubs if needed.
 Same folder, no packages, one owner per file. Don’t edit someone else’s file; ask them to change it.
 Use Git, or one shared folder with a single person merging. Don’t email files around.
 Compile everything together at the halfway mark. That is when most mismatches show up.
+
+
 Missing in the diagram
 
 Production has lists of actors, crew, locations and equipment but no methods to add to them, and the menu needs these. Add addActor, addCrew, addLocation, addEquipment, and getters for the teams, lists, Budget and Timeline. Also add the missing methods to Scene, as I listed in my last message. I can update the diagram once the code is final.
 
+
 Timeline for tomorrow
+
+
 Next 2 to 3 hours: everyone writes their own files against the diagram.
 Then, an hour: put everything in one folder and fix compile errors together.
 Then, 2 hours: Member 1 connects Production and main. Members 2 and 4 test every menu option, including wrong inputs and the clash cases (double booking, over-budget, same scene scheduled twice).
