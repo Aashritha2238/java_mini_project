@@ -200,7 +200,8 @@ public class ConsoleMenu {
             return;
         }
 
-        Scene newScene = new Scene(nextSceneId(), sceneNumber, sceneDescription, sceneLocation);
+        Scene newScene = new Scene(nextSceneId(), sceneNumber, sceneDescription, sceneLocation, new HashSet<>());
+
         addActorsToScene(newScene);
         addCrewToScene(newScene);
         addEquipmentToScene(newScene);
