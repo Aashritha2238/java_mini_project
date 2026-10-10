@@ -36,6 +36,13 @@ public class Scene implements Storable {
         }
         crewMembers.add(crewMember);
     }
+    public void addEquipment(Equipment equipment) {
+        if (equipment == null) {
+            throw new IllegalArgumentException("Equipment cannot be null");
+        }
+
+        this.equipment.add(equipment);
+    }
 
     public void updateProgress(double newProgress) {
         if (newProgress < 0 || newProgress > 100 || Double.isNaN(newProgress) || Double.isInfinite(newProgress)) {
@@ -114,5 +121,9 @@ public class Scene implements Storable {
 
     public Set<Equipment> getEquipment() {
         return equipment;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

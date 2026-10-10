@@ -55,6 +55,9 @@ public class Equipment implements Bookable, Storable {
     public double getDailyCost() {
          return dailyCost; 
         }
+    public String getType() {
+        return type;
+        }
 }
 
 
