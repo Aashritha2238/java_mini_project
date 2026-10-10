@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -223,7 +224,7 @@ public class ConsoleMenu {
             return;
         }
 
-        LocalDate shootingDate = readDate("Shooting date (yyyy-MM-dd): ");
+        LocalDate shootingDate = readDate("Shooting date (DD-MM-YYYY): ");
         LocalTime startTime;
         LocalTime endTime;
         while (true) {
@@ -238,8 +239,9 @@ public class ConsoleMenu {
         ShootingSchedule newSchedule = new ShootingSchedule(nextScheduleId(), shootingDate,
                 startTime, endTime, sceneToSchedule);
         production.addSchedule(newSchedule); // may throw ScheduleConflictException etc.
-        System.out.println("Scene " + sceneToSchedule.getSceneNumber() + " scheduled on "
-                + shootingDate + " from " + startTime + " to " + endTime + ".");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        System.out.println("Scene " + sceneToSchedule.getSceneNumber() + " scheduled on " + shootingDate.format(dateFormatter) + " from " + startTime + " to " + endTime + ".");
     }
 
     private void updateSceneProgress() {
@@ -554,14 +556,24 @@ public class ConsoleMenu {
     }
 
     /** Reads a date in the format yyyy-MM-dd (for example 2026-11-15). Re-asks when invalid. */
+    /** Reads a date in DD-MM-YYYY format and validates the input. */
     public LocalDate readDate(String prompt) {
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("dd-MM-uuuu")
+                        .withResolverStyle(
+                                java.time.format.ResolverStyle.STRICT
+                        );
+
         while (true) {
             System.out.print(prompt);
             String typedText = scanner.nextLine().trim();
+
             try {
-                return LocalDate.parse(typedText);
+                return LocalDate.parse(typedText, formatter);
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid date. Use the format yyyy-MM-dd, for example 2026-11-15.");
+                System.out.println(
+                        "Invalid date. Use DD-MM-YYYY, for example 01-12-2026."
+                );
             }
         }
     }
