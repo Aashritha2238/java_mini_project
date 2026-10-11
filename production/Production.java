@@ -1,3 +1,5 @@
+package production;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +12,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+
+import model.Actor;
+import model.CrewMember;
+import model.Director;
+import model.Movie;
+import model.Scene;
+import resource.Location;
+import resource.Equipment;
+import budget.Budget;
+import timeline.Timeline;
+import timeline.ProductionPhase;
+import storage.FileStorage;
+import resource.ResourceNotAvailableException;
+import budget.BudgetExceededException;
+import model.SceneStatus;
 
 public class Production {
 

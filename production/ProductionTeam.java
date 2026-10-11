@@ -1,7 +1,10 @@
+package production;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import model.Person;
 
 /** A generic team: ProductionTeam<Actor>, ProductionTeam<CrewMember>, ... */
 public class ProductionTeam<T extends Person> {

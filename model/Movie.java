@@ -1,4 +1,7 @@
+package model;
+
 import java.util.List;
+import storage.Storable;
 
 public class Movie implements Storable {
     private int movieId;

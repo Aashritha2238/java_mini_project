@@ -1,5 +1,14 @@
+package production;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import model.Scene;
+import model.SceneStatus;
+import storage.Storable;
+import resource.Location;
+import resource.Equipment;
+import resource.ResourceNotAvailableException;
 
 public class ShootingSchedule implements Schedulable, Storable {
     private int scheduleId;

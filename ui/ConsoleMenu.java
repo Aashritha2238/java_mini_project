@@ -1,3 +1,5 @@
+package ui;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -9,6 +11,21 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
+
+import model.Actor;
+import model.CrewMember;
+import model.Scene;
+import model.SceneStatus;
+import resource.Location;
+import resource.Equipment;
+import resource.ResourceNotAvailableException;
+import production.Production;
+import production.ShootingSchedule;
+import production.ScheduleConflictException;
+import budget.Budget;
+import budget.BudgetExceededException;
+import timeline.Timeline;
+import timeline.ProductionPhase;
 
 /**
  * The complete text menu of the Movie Production Management System.

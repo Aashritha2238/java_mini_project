@@ -1,3 +1,5 @@
+package model;
+
 public class CrewMember extends Person {
     private String role;
     private String department;

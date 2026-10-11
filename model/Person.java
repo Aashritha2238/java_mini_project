@@ -1,3 +1,7 @@
+package model;
+
+import storage.Storable;
+
 /** Abstract base class for everyone who works on a production. */
 public abstract class Person implements Storable {
     private int id;

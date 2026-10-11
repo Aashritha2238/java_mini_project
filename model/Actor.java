@@ -1,3 +1,5 @@
+package model;
+
 public class Actor extends Person {
     private String characterName;
 

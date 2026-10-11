@@ -1,3 +1,12 @@
+package app;
+
+import model.Director;
+import model.Movie;
+import budget.Budget;
+import timeline.Timeline;
+import production.Production;
+import ui.ConsoleMenu;
+
 import java.time.LocalDate;
 
 public class MovieProductionApp {
