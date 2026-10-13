@@ -2,6 +2,7 @@ package production;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Comparator;
 
 import model.Scene;
 import model.SceneStatus;
@@ -10,7 +11,7 @@ import resource.Location;
 import resource.Equipment;
 import resource.ResourceNotAvailableException;
 
-public class ShootingSchedule implements Schedulable, Storable {
+public class ShootingSchedule implements Schedulable, Storable, Comparable<ShootingSchedule> {
     private int scheduleId;
     private LocalDate date;
     private LocalTime startTime;
@@ -28,6 +29,27 @@ public class ShootingSchedule implements Schedulable, Storable {
         this.endTime = endTime;
         this.scene = scene;
     }
+
+    @Override
+    public int compareTo(ShootingSchedule other) {
+
+        int result = this.date.compareTo(other.date);
+
+        if (result == 0) {
+            result = this.startTime.compareTo(other.startTime);
+        }
+
+        if (result == 0) {
+            result = Integer.compare(
+                    this.scheduleId,
+                    other.scheduleId
+            );
+        }
+
+        return result;
+    }
+
+    public static final Comparator<ShootingSchedule> BY_SCENE_NUMBER = Comparator.comparingInt(schedule -> schedule.getScene().getSceneNumber());
 
     public int getScheduleId() { return scheduleId; }
     public LocalDate getDate() { return date; }

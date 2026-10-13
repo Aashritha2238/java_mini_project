@@ -8,16 +8,23 @@ public class Actor extends Person {
         this.characterName = characterName;
     }
 
-    public String getCharacterName() { return characterName; }
+    public Actor(int id, String name, String contact, double fee) {
+        this(id, name, contact, fee, "Not Assigned");
+    }
 
-    @Override
-    public String getDetails() {
-        return "Actor #" + getId() + ": " + getName() + " plays \"" + characterName
-                + "\" | Fee: " + getFee() + " | Contact: " + getContact();
+    public String getCharacterName() { 
+        return characterName; 
     }
 
     @Override
-    public String toCsv() { return super.toCsv() + "," + characterName; }
+    public String getDetails() {
+        return "Actor: " + getName() + ", Character: " + characterName + ", Fee: " + getFee();
+    }
+
+    @Override
+    public String toCsv() { 
+        return super.toCsv() + "," + characterName; 
+    }
 
     /** Rebuilds an Actor from a line written by toCsv(). */
     public static Actor fromCsv(String line) {

@@ -27,15 +27,6 @@ import budget.BudgetExceededException;
 import timeline.Timeline;
 import timeline.ProductionPhase;
 
-/**
- * The complete text menu of the Movie Production Management System.
- *
- * Every menu option is stored in menuActions (option number -> Runnable), as in the
- * class diagram. All input is validated: readInt, readDate and the other read...
- * methods keep asking until the user types something valid.
- *
- * Owner: Member 4 (Kanishgha Sri).
- */
 public class ConsoleMenu {
 
     /** Like Runnable, but allowed to throw exceptions. Used only inside this class. */

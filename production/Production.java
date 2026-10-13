@@ -201,6 +201,17 @@ public class Production {
         return null;
     }
 
+    public Actor findActor(String name) {
+
+        for (Actor a : actorTeam.getMembers()) {
+            if (a.getName().equalsIgnoreCase(name)) {
+                return a;
+            }
+        }
+
+        return null;
+    }
+
 
     public CrewMember findCrew(int id) {
 
@@ -443,8 +454,12 @@ public class Production {
     }
 
 
-    public void sortSchedules(Comparator<ShootingSchedule> order) {
+    public void sortSchedules() {
+        Collections.sort(schedules);
+    }
 
+
+    public void sortSchedules(Comparator<ShootingSchedule> order) {
         schedules.sort(order);
     }
 

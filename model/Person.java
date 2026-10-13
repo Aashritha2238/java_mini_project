@@ -22,8 +22,9 @@ public abstract class Person implements Storable {
 
     public double getFee() { return fee; }
 
-    /** Each subclass describes itself differently. */
-    public abstract String getDetails();
+    public String getDetails() {
+        return "ID: " + id + ", Name: " + name + ", Contact: " + contact + ", Fee: " + fee;
+    }
 
     @Override
     public String toCsv() {
