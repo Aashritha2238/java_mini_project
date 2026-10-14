@@ -359,8 +359,8 @@ public class ConsoleMenu {
         while (true) {
             System.out.println();
             System.out.println("--- Demonstrate OOP Concepts ---");
-            System.out.println("1. Method overloading: search actor by ID");
-            System.out.println("2. Method overloading: search actor by name");
+            System.out.println("1. Search actor by ID");
+            System.out.println("2. Search actor by name");
             System.out.println("3. Method overriding and runtime polymorphism");
             System.out.println("4. Back to main menu");
 
@@ -398,14 +398,13 @@ public class ConsoleMenu {
                         System.out.println("[" + actor.getId() + "] " + actor.getName());
                     }
 
-                    int id = readInt("Enter actor ID to demonstrate overriding: ");
+                    int id = readInt("Enter actor ID: ");
                     Actor actor = production.findActor(id);
                     if (actor == null) {
                         System.out.println("No actor found with ID " + id + ".");
                     } else {
                         // Parent reference, child object: overridden method is called at runtime.
                         Person person = actor;
-                        System.out.println("Calling getDetails() through a Person reference:");
                         System.out.println(person.getDetails());
                     }
                     break;
