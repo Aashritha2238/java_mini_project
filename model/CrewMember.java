@@ -29,4 +29,9 @@ public class CrewMember extends Person {
         return new CrewMember(Integer.parseInt(p[0]), p[1], p[2],
                 Double.parseDouble(p[3]), p[4], p[5]);
     }
+
+    @Override
+    public String getResponsibilities() {
+        return "Responsible for the assigned production work.";
+    }
 }

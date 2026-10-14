@@ -32,4 +32,9 @@ public class Actor extends Person {
         return new Actor(Integer.parseInt(p[0]), p[1], p[2],
                 Double.parseDouble(p[3]), p[4]);
     }
+
+    @Override
+    public String getResponsibilities() {
+        return "Performs the assigned character: " + characterName;
+    }
 }

@@ -25,4 +25,8 @@ public class Director extends Person {
         return new Director(Integer.parseInt(p[0]), p[1], p[2],
                 Double.parseDouble(p[3]), p[4]);
     }
+    @Override
+    public String getResponsibilities() {
+        return "Guides the creative direction of the movie.";
+    }
 }

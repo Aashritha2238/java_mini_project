@@ -50,8 +50,8 @@ public class ConsoleMenu {
     private static final int OPTION_SAVE = 11;
     private static final int OPTION_LOAD = 12;
     private static final int OPTION_OOP_DEMO = 13;
-    private static final int OPTION_SORT_SCHEDULES = 14;
-    private static final int OPTION_EXIT = 15;
+    private static final int OPTION_SORT_SCHEDULES = 15;
+    private static final int OPTION_EXIT = 14;
 
     private final Scanner scanner;
     private final Production production;
@@ -139,8 +139,7 @@ public class ConsoleMenu {
         System.out.println("11. Save data");
         System.out.println("12. Load data");
         System.out.println("13. Demonstrate OOP concepts");
-        System.out.println("14. Sort shooting schedules");
-        System.out.println("15. Exit");
+        System.out.println("14. Exit");
         System.out.println("----------------------------------------------");
     }
 
@@ -403,7 +402,7 @@ public class ConsoleMenu {
                     if (actor == null) {
                         System.out.println("No actor found with ID " + id + ".");
                     } else {
-                        // Parent reference, child object: overridden method is called at runtime.
+                        // Parent reference.
                         Person person = actor;
                         System.out.println(person.getDetails());
                     }

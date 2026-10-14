@@ -30,4 +30,6 @@ public abstract class Person implements Storable {
     public String toCsv() {
         return id + "," + name + "," + contact + "," + fee;
     }
+
+    public abstract String getResponsibilities();
 }
