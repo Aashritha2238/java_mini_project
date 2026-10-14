@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import model.Actor;
+import model.Person;
 import model.CrewMember;
 import model.Scene;
 import model.SceneStatus;
@@ -47,7 +49,9 @@ public class ConsoleMenu {
     private static final int OPTION_ADVANCE_PHASE = 10;
     private static final int OPTION_SAVE = 11;
     private static final int OPTION_LOAD = 12;
-    private static final int OPTION_EXIT = 13;
+    private static final int OPTION_OOP_DEMO = 13;
+    private static final int OPTION_SORT_SCHEDULES = 14;
+    private static final int OPTION_EXIT = 15;
 
     private final Scanner scanner;
     private final Production production;
@@ -77,6 +81,8 @@ public class ConsoleMenu {
         register(OPTION_ADVANCE_PHASE, this::advancePhase);
         register(OPTION_SAVE, this::saveData);
         register(OPTION_LOAD, this::loadData);
+        register(OPTION_OOP_DEMO, this::demonstrateOopConcepts);
+        register(OPTION_SORT_SCHEDULES, this::sortSchedulesMenu);
         register(OPTION_EXIT, this::exitProgram);
     }
 
@@ -132,7 +138,9 @@ public class ConsoleMenu {
         System.out.println("10. Advance production phase");
         System.out.println("11. Save data");
         System.out.println("12. Load data");
-        System.out.println("13. Exit");
+        System.out.println("13. Demonstrate OOP concepts");
+        System.out.println("14. Sort shooting schedules");
+        System.out.println("15. Exit");
         System.out.println("----------------------------------------------");
     }
 
@@ -145,10 +153,25 @@ public class ConsoleMenu {
         String actorName = readText("Actor name: ");
         String contactDetails = readText("Contact (phone/email): ");
         double actorFee = readNonNegativeDouble("Fee: ");
-        String characterName = readText("Character name: ");
 
+        System.out.print("Do you want to assign a character name? (yes/no): ");
+        String answer = scanner.nextLine().trim();
+
+        Actor newActor;
         int newActorId = nextPersonId();
-        Actor newActor = new Actor(newActorId, actorName, contactDetails, actorFee, characterName);
+
+        if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+            String characterName = readText("Character name: ");
+            // Constructor with characterName
+            newActor = new Actor(newActorId, actorName, contactDetails, actorFee, characterName);
+        } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
+            // Overloaded constructor without characterName
+            newActor = new Actor(newActorId, actorName, contactDetails, actorFee);
+        } else {
+            System.out.println("Please answer yes or no. Actor was not added.");
+            return;
+        }
+
         production.addActor(newActor);
         System.out.println("Actor added with id " + newActorId + ".");
     }
@@ -324,6 +347,127 @@ public class ConsoleMenu {
     private void exitProgram() {
         running = false;
         System.out.println("Goodbye!");
+    }
+
+
+
+    // ------------------------------------------------------------------
+    // OOP demonstrations: overloading, overriding, and polymorphism
+    // ------------------------------------------------------------------
+
+    private void demonstrateOopConcepts() {
+        while (true) {
+            System.out.println();
+            System.out.println("--- Demonstrate OOP Concepts ---");
+            System.out.println("1. Method overloading: search actor by ID");
+            System.out.println("2. Method overloading: search actor by name");
+            System.out.println("3. Method overriding and runtime polymorphism");
+            System.out.println("4. Back to main menu");
+
+            int choice = readInt("Enter your choice: ");
+
+            switch (choice) {
+                case 1: {
+                    int id = readInt("Enter actor ID: ");
+                    Actor actor = production.findActor(id);
+                    if (actor == null) {
+                        System.out.println("No actor found with ID " + id + ".");
+                    } else {
+                        System.out.println(actor.getDetails());
+                    }
+                    break;
+                }
+                case 2: {
+                    String name = readText("Enter actor name: ");
+                    Actor actor = production.findActor(name);
+                    if (actor == null) {
+                        System.out.println("No actor found with name " + name + ".");
+                    } else {
+                        System.out.println(actor.getDetails());
+                    }
+                    break;
+                }
+                case 3: {
+                    if (production.getActorTeam().getMembers().isEmpty()) {
+                        System.out.println("Add an actor first using option 1.");
+                        break;
+                    }
+
+                    System.out.println("Available actors:");
+                    for (Actor actor : production.getActorTeam().getMembers()) {
+                        System.out.println("[" + actor.getId() + "] " + actor.getName());
+                    }
+
+                    int id = readInt("Enter actor ID to demonstrate overriding: ");
+                    Actor actor = production.findActor(id);
+                    if (actor == null) {
+                        System.out.println("No actor found with ID " + id + ".");
+                    } else {
+                        // Parent reference, child object: overridden method is called at runtime.
+                        Person person = actor;
+                        System.out.println("Calling getDetails() through a Person reference:");
+                        System.out.println(person.getDetails());
+                    }
+                    break;
+                }
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid choice. Choose 1 to 4.");
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Comparable and Comparator demonstrations
+    // ------------------------------------------------------------------
+
+    private void sortSchedulesMenu() {
+        while (true) {
+            System.out.println();
+            System.out.println("--- Sort Shooting Schedules ---");
+            System.out.println("1. Sort by date and start time (Comparable)");
+            System.out.println("2. Sort by scene number (Comparator)");
+            System.out.println("3. Back to main menu");
+
+            int choice = readInt("Enter your choice: ");
+
+            switch (choice) {
+                case 1:
+                    if (production.getSchedules().isEmpty()) {
+                        System.out.println("No shooting schedules to sort. Schedule a scene first.");
+                        break;
+                    }
+                    production.sortSchedules();
+                    System.out.println("Schedules sorted by date and start time using Comparable.");
+                    printSchedules();
+                    break;
+                case 2:
+                    if (production.getSchedules().isEmpty()) {
+                        System.out.println("No shooting schedules to sort. Schedule a scene first.");
+                        break;
+                    }
+                    production.sortSchedules(ShootingSchedule.BY_SCENE_NUMBER);
+                    System.out.println("Schedules sorted by scene number using Comparator.");
+                    printSchedules();
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid choice. Choose 1 to 3.");
+            }
+        }
+    }
+
+    private void printSchedules() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        System.out.println("Shooting schedules:");
+        for (ShootingSchedule schedule : production.getSchedules()) {
+            System.out.println("Schedule ID: " + schedule.getScheduleId()
+                    + " | Scene: " + schedule.getScene().getSceneNumber()
+                    + " | Date: " + schedule.getDate().format(dateFormatter)
+                    + " | Time: " + schedule.getStartTime() + " - " + schedule.getEndTime());
+        }
     }
 
     // ------------------------------------------------------------------
